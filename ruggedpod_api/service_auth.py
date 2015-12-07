@@ -63,7 +63,8 @@ class Cypher(object):
             dec = base64.b64decode(enc)
             iv = dec[:AES.block_size]
             cipher = AES.new(self.key, AES.MODE_CBC, iv)
-            return self._unpad(cipher.decrypt(dec[AES.block_size:])).decode('utf-8')
+            decrypted = cipher.decrypt(dec[AES.block_size:])
+            return self._unpad(decrypted).decode('utf-8')
         except:
             raise AuthenticationFailed()
 

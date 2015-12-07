@@ -64,7 +64,8 @@ def authenticate():
     token, expires = auth.get_token(request.args['username'],
                                     request.args['password'])
     response = make_response('', 201)
-    response.set_cookie('X-Auth-Username', request.args['username'], expires=expires)
+    response.set_cookie('X-Auth-Username', request.args['username'],
+                        expires=expires)
     response.set_cookie('X-Auth-Token', token, expires=expires)
     return response
 
@@ -225,9 +226,12 @@ def get_all_blades_oil_pump_state():
     return service.get_all_blades_oil_pump_state()
 
 
-if __name__ == "__main__":
+def main():
     service.init()
 
     if '--debug' in sys.argv:
         app.debug = True
     app.run(host='0.0.0.0')
+
+if __name__ == "__main__":
+    main()
